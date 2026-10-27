@@ -5,14 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SHADOW SYSTEM // Fitness RPG</title>
     
-    <!-- PWA & Mobile App Installation Meta Tags -->
+    <!-- PWA & Mobile Standalone Meta Tags -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="SHADOW SYSTEM">
     <meta name="theme-color" content="#04070D">
-    <link rel="apple-touch-icon" href="https://api.iconify.design/lucide:swords.svg?color=%2300e5ff">
-    <link rel="icon" type="image/svg+xml" href="https://api.iconify.design/lucide:swords.svg?color=%2300e5ff">
+    
+    <!-- Direct High-Resolution Icons for Homescreen & PWA Launcher -->
+    <link rel="icon" type="image/png" sizes="192x192" href="https://img.icons8.com/color/192/crossed-swords.png">
+    <link rel="apple-touch-icon" sizes="192x192" href="https://img.icons8.com/color/192/crossed-swords.png">
+
+    <!-- Embedded PWA Web Manifest (Base64 data URI so GitHub Pages serves it instantly) -->
+    <link rel="manifest" href='data:application/manifest+json;utf-8,%7B%22name%22%3A%22SHADOW%20SYSTEM%20Fitness%20RPG%22%2C%22short_name%22%3A%22SHADOW%20SYSTEM%22%2C%22description%22%3A%22Solo%20Leveling%20Fitness%20RPG%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22orientation%22%3A%22portrait%22%2C%22background_color%22%3A%22%2304070D%22%2C%22theme_color%22%3A%22%2304070D%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22https%3A%2F%2Fimg.icons8.com%2Fcolor%2F192%2Fcrossed-swords.png%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%2C%7B%22src%22%3A%22https%3A%2F%2Fimg.icons8.com%2Fcolor%2F512%2Fcrossed-swords.png%22%2C%22sizes%22%3A%22512x512%22%2C%22type%22%3A%22image%2Fpng%22%2C%22purpose%22%3A%22any%20maskable%22%7D%5D%7D'>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -120,7 +125,6 @@
         .level-up-modal {
             animation: levelUpPop 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(0, 229, 255, 0.3); border-radius: 99px; }
@@ -128,27 +132,21 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-0 sm:p-4 bg-gradient-to-b from-[#02050A] via-[#061022] to-[#02050A]">
 
-    <!-- Top Context Bar for Desktop Previewers -->
-    <div class="hidden sm:flex items-center justify-between w-full max-w-[430px] mb-2 px-3 py-1.5 rounded-lg bg-slate-900/90 border border-cyan-500/30 text-xs text-cyan-300 font-rajdhani tracking-wider">
-        <span class="flex items-center gap-1.5"><i class="ph-fill ph-android-logo text-emerald-400 text-base"></i> ANDROID RUNTIME // SHADOW SYSTEM v2.4</span>
-        <span id="sync-indicator" class="flex items-center gap-1 text-cyan-400"><i class="ph ph-HardDrives"></i> LOCAL + CLOUD READY</span>
-    </div>
-
-    <!-- PWA Installation Banner (Shows automatically if phone allows browser install) -->
-    <div id="pwa-install-banner" class="hidden w-full max-w-[430px] mb-2 px-3 py-2 rounded-xl bg-cyan-950/80 border border-cyan-400/60 flex items-center justify-between text-xs text-cyan-200 shadow-lg">
+    <!-- PWA In-App Install Banner -->
+    <div id="pwa-install-banner" class="w-full max-w-[430px] p-2.5 bg-gradient-to-r from-cyan-950 via-slate-900 to-cyan-950 border-b border-cyan-400 flex items-center justify-between text-xs text-cyan-200 shadow-xl shrink-0 z-30">
         <div class="flex items-center gap-2">
-            <span class="text-lg">📲</span>
+            <span class="text-xl">⚔️</span>
             <div>
-                <div class="font-orbitron font-bold text-[11px] text-cyan-300">INSTALL TO PHONE</div>
-                <div class="text-[10px] opacity-80">Add to home screen as standalone app</div>
+                <div class="font-orbitron font-bold text-[11px] text-cyan-300">INSTALL AS REAL APP</div>
+                <div class="text-[10px] opacity-80">Full-screen mode & custom home icon</div>
             </div>
         </div>
-        <button id="pwa-install-btn" class="px-3 py-1.5 rounded-lg bg-cyan-400 text-slate-950 font-orbitron font-black text-[10px] uppercase tracking-wider hover:bg-cyan-300 transition">
+        <button id="pwa-install-btn" class="px-3.5 py-1.5 rounded-lg bg-cyan-400 text-slate-950 font-orbitron font-black text-[11px] uppercase tracking-wider hover:bg-cyan-300 transition shadow-lg">
             INSTALL
         </button>
     </div>
 
-    <!-- Mobile Phone Frame Container -->
+    <!-- Mobile Frame Container -->
     <div id="app-shell" class="w-full max-w-[430px] h-screen sm:h-[860px] sm:rounded-[38px] sm:border-[6px] sm:border-slate-800 overflow-hidden flex flex-col relative shadow-[0_0_50px_rgba(0,229,255,0.15)] scanline" style="background-color: var(--bg-main); color: var(--text-main);">
 
         <!-- Android Status Bar -->
@@ -164,10 +162,9 @@
             </div>
         </div>
 
-        <!-- Top System Hunter Header -->
+        <!-- Hunter Header -->
         <header class="px-4 pt-3 pb-2.5 border-b border-cyan-500/20 shrink-0" style="background: var(--bg-panel);">
             <div class="flex items-center justify-between gap-3">
-                <!-- Avatar + Name + Title -->
                 <div class="flex items-center gap-3 min-w-0 cursor-pointer group" onclick="openProfileModal()">
                     <div class="relative w-12 h-12 rounded-xl bg-slate-900 border-2 border-cyan-400 flex items-center justify-center shrink-0 mana-box-glow group-hover:scale-105 transition">
                         <span id="header-avatar" class="text-2xl">⚔️</span>
@@ -182,9 +179,8 @@
                     </div>
                 </div>
 
-                <!-- Level & Streak Pill -->
                 <div class="flex items-center gap-2 shrink-0">
-                    <div class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-400/40 flex items-center gap-1" title="Active Workout Streak (No Penalty on Rest Days)">
+                    <div class="px-2.5 py-1 rounded-lg bg-amber-500/10 border border-amber-400/40 flex items-center gap-1" title="Active Streak">
                         <i class="ph-fill ph-fire text-amber-400 text-sm"></i>
                         <span id="header-streak" class="font-orbitron font-bold text-xs text-amber-300">0</span>
                     </div>
@@ -209,12 +205,11 @@
             </div>
         </header>
 
-        <!-- Main Scrollable Viewport -->
+        <!-- Main Viewport -->
         <main id="main-viewport" class="flex-1 overflow-y-auto px-4 py-4 space-y-4">
 
-            <!-- TAB 1: SYSTEM DASHBOARD -->
+            <!-- TAB 1: DASHBOARD -->
             <section id="tab-dashboard" class="space-y-4">
-                <!-- Daily System Notification Panel -->
                 <div class="system-window rounded-xl p-3.5">
                     <div class="flex items-start justify-between gap-2">
                         <div class="flex items-center gap-2">
@@ -224,11 +219,10 @@
                         <span id="dashboard-difficulty-badge" class="text-[10px] font-rajdhani font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-400/30 uppercase">NORMAL MODE</span>
                     </div>
                     <p id="system-message" class="mt-1.5 text-xs leading-relaxed opacity-90 font-sans">
-                        Welcome, Player. Complete your Daily Quest to grow stronger. Taking a Rest Day preserves your streak without penalty.
+                        Welcome, Player. Complete your Daily Quest to grow stronger. Rest Days protect your streak without penalty.
                     </p>
                 </div>
 
-                <!-- Hunter Rank & Quick Overview Cards -->
                 <div class="grid grid-cols-3 gap-2.5">
                     <div class="system-window rounded-xl p-3 text-center">
                         <div class="text-[10px] font-rajdhani uppercase tracking-widest opacity-70">HUNTER RANK</div>
@@ -247,17 +241,15 @@
                     </div>
                 </div>
 
-                <!-- Prominent START QUEST CTA -->
                 <div class="system-window rounded-2xl p-4 bg-gradient-to-br from-cyan-950/50 via-slate-900/90 to-violet-950/40">
                     <div class="flex items-center justify-between mb-2">
                         <div>
-                            <span class="text-[10px] font-orbitron tracking-widest text-cyan-400 uppercase block">DAILY PREPARATION TO BECOME POWERFUL</span>
+                            <span class="text-[10px] font-orbitron tracking-widest text-cyan-400 uppercase block">DAILY PREPARATION</span>
                             <h2 class="font-orbitron font-bold text-base tracking-wide mt-0.5">TODAY'S MANDATORY QUEST</h2>
                         </div>
                         <span id="dash-quest-progress-pill" class="px-2.5 py-1 rounded-full text-xs font-orbitron font-bold bg-cyan-500/20 text-cyan-300 border border-cyan-400/40">0 / 4</span>
                     </div>
 
-                    <!-- Mini preview list of today's quests -->
                     <div id="dash-quest-list" class="space-y-2 my-3"></div>
 
                     <div class="grid grid-cols-2 gap-2.5 mt-3">
@@ -270,7 +262,7 @@
                     </div>
                 </div>
 
-                <!-- Hunter Attribute Radar / Bars -->
+                <!-- Attributes -->
                 <div class="system-window rounded-xl p-4">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="font-orbitron font-bold text-xs tracking-widest text-cyan-400 uppercase flex items-center gap-1.5">
@@ -280,13 +272,11 @@
                             +0 PTS AVAILABLE
                         </span>
                     </div>
-                    <div id="stats-grid" class="grid grid-cols-2 gap-2.5">
-                        <!-- Rendered dynamically -->
-                    </div>
+                    <div id="stats-grid" class="grid grid-cols-2 gap-2.5"></div>
                 </div>
             </section>
 
-            <!-- TAB 2: DAILY QUESTS & REST DAY CONTROL -->
+            <!-- TAB 2: QUESTS -->
             <section id="tab-quests" class="hidden space-y-4">
                 <div class="system-window rounded-xl p-4">
                     <div class="flex items-center justify-between flex-wrap gap-2">
@@ -299,9 +289,8 @@
                         </button>
                     </div>
 
-                    <!-- Difficulty Selector Bar -->
                     <div class="mt-3 pt-3 border-t border-cyan-500/20 flex items-center justify-between gap-2">
-                        <span class="text-xs font-rajdhani uppercase tracking-wider opacity-80">Quest Rank Difficulty:</span>
+                        <span class="text-xs font-rajdhani uppercase tracking-wider opacity-80">Rank Difficulty:</span>
                         <div class="flex rounded-lg overflow-hidden border border-cyan-500/30 bg-slate-950/60 p-0.5 gap-1">
                             <button onclick="setDifficulty('beginner')" id="diff-beginner" class="px-2.5 py-1 rounded text-[11px] font-rajdhani font-bold uppercase transition">Beginner</button>
                             <button onclick="setDifficulty('normal')" id="diff-normal" class="px-2.5 py-1 rounded text-[11px] font-rajdhani font-bold uppercase transition">Hunter</button>
@@ -310,43 +299,26 @@
                     </div>
                 </div>
 
-                <!-- Rest Day Banner (Hidden unless active) -->
                 <div id="rest-day-banner" class="hidden system-window rounded-xl p-5 text-center border-emerald-400/50 bg-emerald-950/20">
                     <div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400 mx-auto flex items-center justify-center text-2xl mb-2">🧘</div>
                     <h3 class="font-orbitron font-bold text-sm text-emerald-300 uppercase tracking-wider">RECOVERY PROTOCOL ACTIVE</h3>
                     <p class="text-xs opacity-85 mt-1 max-w-xs mx-auto">
-                        Even S-Rank Hunters require mana recovery. Your consecutive streak (<span id="rest-streak-count" class="font-bold text-emerald-300">0</span> days) is protected today.
+                        Your consecutive streak (<span id="rest-streak-count" class="font-bold text-emerald-300">0</span> days) is protected today.
                     </p>
                     <button onclick="toggleRestDay()" class="mt-3 px-4 py-2 rounded-lg bg-emerald-400 text-slate-950 font-orbitron font-bold text-xs uppercase tracking-wider">
                         RESUME TRAINING TODAY
                     </button>
                 </div>
 
-                <!-- Daily Exercises List -->
                 <div id="quest-cards-container" class="space-y-3"></div>
-
-                <!-- Bonus Dungeon / Regenerate Quests -->
-                <div class="system-window rounded-xl p-3.5 flex items-center justify-between">
-                    <div>
-                        <div class="font-orbitron font-bold text-xs text-cyan-300">WANT AN EXTRA CHALLENGE?</div>
-                        <div class="text-[11px] opacity-75">Generate a new Instant Dungeon bodyweight set.</div>
-                    </div>
-                    <button onclick="generateBonusQuests()" class="px-3 py-2 rounded-lg bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 font-orbitron font-bold text-[11px] hover:bg-cyan-500/30 transition flex items-center gap-1 shrink-0">
-                        <i class="ph-bold ph-arrows-clockwise"></i> NEW DUNGEON
-                    </button>
-                </div>
             </section>
 
-            <!-- TAB 3: WORKOUT TRACKER & PROGRESS CHARTS -->
+            <!-- TAB 3: TRACKER -->
             <section id="tab-tracker" class="hidden space-y-4">
-                <!-- Log New Custom Workout Form -->
                 <div class="system-window rounded-xl p-4">
-                    <div class="flex items-center justify-between mb-3">
-                        <h2 class="font-orbitron font-bold text-sm tracking-wider text-cyan-400 uppercase flex items-center gap-1.5">
-                            <i class="ph-fill ph-barbell"></i> RECORD COMBAT TRAINING
-                        </h2>
-                        <span class="text-[10px] font-rajdhani px-2 py-0.5 rounded bg-violet-500/20 text-violet-300 border border-violet-400/30">+XP ON LOG</span>
-                    </div>
+                    <h2 class="font-orbitron font-bold text-sm tracking-wider text-cyan-400 uppercase flex items-center gap-1.5 mb-3">
+                        <i class="ph-fill ph-barbell"></i> RECORD COMBAT TRAINING
+                    </h2>
 
                     <form id="workout-form" onsubmit="handleLogWorkout(event)" class="space-y-3">
                         <div>
@@ -354,41 +326,37 @@
                             <select id="log-exercise" class="w-full rounded-lg bg-slate-900/90 border border-cyan-500/40 px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-400">
                                 <option value="Push-Ups (Standard)">Push-Ups (Standard)</option>
                                 <option value="Knee Push-Ups (Beginner)">Knee Push-Ups (Beginner)</option>
-                                <option value="Diamond Push-Ups">Diamond Push-Ups</option>
                                 <option value="Air Squats">Air Squats</option>
-                                <option value="Assisted Chair Squats (Beginner)">Assisted Chair Squats (Beginner)</option>
                                 <option value="Forward Lunges">Forward Lunges</option>
                                 <option value="Core Plank (Seconds)">Core Plank (Seconds)</option>
-                                <option value="Mountain Climbers">Mountain Climbers</option>
-                                <option value="Burpees (Shadow Rush)">Burpees (Shadow Rush)</option>
-                                <option value="Pull-Ups / Doorframe Rows">Pull-Ups / Doorframe Rows</option>
+                                <option value="Burpees">Burpees</option>
+                                <option value="Pull-Ups">Pull-Ups</option>
                             </select>
                         </div>
 
                         <div class="grid grid-cols-3 gap-2.5">
                             <div>
                                 <label class="block text-[11px] font-rajdhani uppercase tracking-wider opacity-80 mb-1">Sets</label>
-                                <input type="number" id="log-sets" min="1" max="50" value="3" required class="w-full rounded-lg bg-slate-900/90 border border-cyan-500/40 px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-cyan-400">
+                                <input type="number" id="log-sets" min="1" max="50" value="3" required class="w-full rounded-lg bg-slate-900/90 border border-cyan-500/40 px-3 py-2 text-xs text-white font-mono">
                             </div>
                             <div>
-                                <label class="block text-[11px] font-rajdhani uppercase tracking-wider opacity-80 mb-1">Reps / Secs</label>
-                                <input type="number" id="log-reps" min="1" max="1000" value="15" required class="w-full rounded-lg bg-slate-900/90 border border-cyan-500/40 px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-cyan-400">
+                                <label class="block text-[11px] font-rajdhani uppercase tracking-wider opacity-80 mb-1">Reps/Sec</label>
+                                <input type="number" id="log-reps" min="1" max="1000" value="15" required class="w-full rounded-lg bg-slate-900/90 border border-cyan-500/40 px-3 py-2 text-xs text-white font-mono">
                             </div>
                             <div>
-                                <label class="block text-[11px] font-rajdhani uppercase tracking-wider opacity-80 mb-1">Duration (Min)</label>
-                                <input type="number" id="log-duration" min="1" max="300" value="10" required class="w-full rounded-lg bg-slate-900/90 border border-cyan-500/40 px-3 py-2 text-xs text-white font-mono focus:outline-none focus:border-cyan-400">
+                                <label class="block text-[11px] font-rajdhani uppercase tracking-wider opacity-80 mb-1">Mins</label>
+                                <input type="number" id="log-duration" min="1" max="300" value="10" required class="w-full rounded-lg bg-slate-900/90 border border-cyan-500/40 px-3 py-2 text-xs text-white font-mono">
                             </div>
                         </div>
 
                         <div id="workout-form-error" class="hidden text-xs text-rose-400 font-rajdhani"></div>
 
-                        <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 font-orbitron font-bold text-xs uppercase tracking-wider hover:opacity-95 transition flex items-center justify-center gap-1.5 shadow-lg">
-                            <i class="ph-bold ph-plus-circle text-sm"></i> LOG WORKOUT & CLAIM MANA XP
+                        <button type="submit" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-400 to-sky-500 text-slate-950 font-orbitron font-bold text-xs uppercase tracking-wider transition flex items-center justify-center gap-1.5 shadow-lg">
+                            <i class="ph-bold ph-plus-circle text-sm"></i> LOG WORKOUT & CLAIM XP
                         </button>
                     </form>
                 </div>
 
-                <!-- 7-Day XP & Volume Progress Chart -->
                 <div class="system-window rounded-xl p-4">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="font-orbitron font-bold text-xs tracking-wider text-cyan-400 uppercase flex items-center gap-1.5">
@@ -396,16 +364,13 @@
                         </h3>
                         <span id="chart-total-volume" class="text-[11px] font-mono text-cyan-300">0 Total Reps</span>
                     </div>
-                    <div id="weekly-chart" class="h-32 flex items-end justify-between gap-2 pt-4 px-1 border-b border-cyan-500/20">
-                        <!-- Rendered via JS -->
-                    </div>
+                    <div id="weekly-chart" class="h-32 flex items-end justify-between gap-2 pt-4 px-1 border-b border-cyan-500/20"></div>
                 </div>
 
-                <!-- Workout History Log -->
                 <div class="system-window rounded-xl p-4">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="font-orbitron font-bold text-xs tracking-wider text-cyan-400 uppercase flex items-center gap-1.5">
-                            <i class="ph-fill ph-clock-counter-clockwise"></i> HUNTER COMBAT LOGS
+                            <i class="ph-fill ph-clock-counter-clockwise"></i> COMBAT LOGS
                         </h3>
                         <span id="history-count-badge" class="text-[11px] font-rajdhani opacity-75">0 entries</span>
                     </div>
@@ -413,32 +378,28 @@
                 </div>
             </section>
 
-            <!-- TAB 4: HUNTER RANKS, STREAKS & ACHIEVEMENTS -->
+            <!-- TAB 4: RANKS -->
             <section id="tab-achievements" class="hidden space-y-4">
-                <!-- Hunter Rank Progression Ladder -->
                 <div class="system-window rounded-xl p-4">
                     <h2 class="font-orbitron font-bold text-xs tracking-wider text-cyan-400 uppercase mb-3 flex items-center gap-1.5">
-                        <i class="ph-fill ph-crown"></i> HUNTER ASSOCIATION RANK LADDER
+                        <i class="ph-fill ph-crown"></i> HUNTER RANKS
                     </h2>
                     <div id="rank-ladder-list" class="grid grid-cols-6 gap-1.5 text-center"></div>
                 </div>
 
-                <!-- Cosmetics / Shadow Aura Unlockables -->
                 <div class="system-window rounded-xl p-4">
                     <div class="flex items-center justify-between mb-2.5">
                         <h3 class="font-orbitron font-bold text-xs tracking-wider text-cyan-400 uppercase flex items-center gap-1.5">
-                            <i class="ph-fill ph-sparkle"></i> COSMETIC SHADOW TITLES
+                            <i class="ph-fill ph-sparkle"></i> SHADOW TITLES
                         </h3>
-                        <span class="text-[10px] font-rajdhani text-cyan-300">Tap unlocked title to equip</span>
                     </div>
                     <div id="cosmetic-titles-list" class="flex flex-wrap gap-2"></div>
                 </div>
 
-                <!-- Milestone Achievements Grid -->
                 <div class="system-window rounded-xl p-4">
                     <div class="flex items-center justify-between mb-3">
                         <h3 class="font-orbitron font-bold text-xs tracking-wider text-cyan-400 uppercase flex items-center gap-1.5">
-                            <i class="ph-fill ph-medal"></i> SYSTEM TROPHIES & BADGES
+                            <i class="ph-fill ph-medal"></i> TROPHIES
                         </h3>
                         <span id="achievements-unlocked-count" class="text-xs font-orbitron text-cyan-300">0 / 8</span>
                     </div>
@@ -446,98 +407,57 @@
                 </div>
             </section>
 
-            <!-- TAB 5: SYSTEM SETTINGS & DATA PRIVACY -->
+            <!-- TAB 5: SETTINGS -->
             <section id="tab-settings" class="hidden space-y-4">
                 <div class="system-window rounded-xl p-4 space-y-4">
                     <h2 class="font-orbitron font-bold text-sm tracking-wider text-cyan-400 uppercase flex items-center gap-2">
-                        <i class="ph-fill ph-Sliders"></i> SYSTEM CONFIGURATION
+                        <i class="ph-fill ph-gear-six"></i> CONFIGURATION
                     </h2>
 
-                    <!-- Profile Quick Edit -->
                     <div class="flex items-center justify-between py-2 border-b border-cyan-500/15">
                         <div>
-                            <div class="font-semibold text-xs">Player Identity & Avatar</div>
-                            <div class="text-[11px] opacity-70">Customize Hunter Name & Emblem</div>
+                            <div class="font-semibold text-xs">Profile</div>
+                            <div class="text-[11px] opacity-70">Customize Hunter Name</div>
                         </div>
                         <button onclick="openProfileModal()" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 text-xs font-orbitron font-bold">
                             EDIT
                         </button>
                     </div>
 
-                    <!-- Theme Toggle -->
                     <div class="flex items-center justify-between py-2 border-b border-cyan-500/15">
                         <div>
-                            <div class="font-semibold text-xs">Interface Theme Mode</div>
-                            <div class="text-[11px] opacity-70">Switch between Shadow Dark & Guild Light</div>
+                            <div class="font-semibold text-xs">Theme</div>
+                            <div class="text-[11px] opacity-70">Dark / Light Mode</div>
                         </div>
                         <button onclick="toggleTheme()" id="setting-theme-btn" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 border border-cyan-400/50 text-cyan-300 text-xs font-orbitron font-bold">
                             DARK MODE
                         </button>
                     </div>
 
-                    <!-- Sound Effects Toggle -->
                     <div class="flex items-center justify-between py-2 border-b border-cyan-500/15">
                         <div>
-                            <div class="font-semibold text-xs">System Audio Synthesizer</div>
-                            <div class="text-[11px] opacity-70">Futuristic chimes on quest clear & level up</div>
+                            <div class="font-semibold text-xs">Sound Effects</div>
+                            <div class="text-[11px] opacity-70">System audio chimes</div>
                         </div>
                         <button onclick="toggleSetting('soundEnabled')" id="setting-sound-btn" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-orbitron font-bold">
                             ENABLED
                         </button>
                     </div>
 
-                    <!-- Level-Up Animations Toggle -->
-                    <div class="flex items-center justify-between py-2 border-b border-cyan-500/15">
-                        <div>
-                            <div class="font-semibold text-xs">System Animations & Overlays</div>
-                            <div class="text-[11px] opacity-70">Show dramatic Level-Up & Awakening popups</div>
-                        </div>
-                        <button onclick="toggleSetting('animationsEnabled')" id="setting-anim-btn" class="px-3 py-1.5 rounded-lg bg-emerald-500/20 border border-emerald-400/50 text-emerald-300 text-xs font-orbitron font-bold">
-                            ENABLED
-                        </button>
-                    </div>
-
-                    <!-- Difficulty Setting -->
                     <div class="flex items-center justify-between py-2">
                         <div>
-                            <div class="font-semibold text-xs">Default Quest Difficulty</div>
-                            <div class="text-[11px] opacity-70">Scales daily repetition targets & XP bonus</div>
+                            <div class="font-semibold text-xs">Reset Progress</div>
+                            <div class="text-[11px] opacity-70">Reset to Level 1</div>
                         </div>
-                        <select id="setting-difficulty-select" onchange="setDifficulty(this.value)" class="rounded-lg bg-slate-900 border border-cyan-500/40 px-2.5 py-1.5 text-xs text-cyan-300 font-orbitron">
-                            <option value="beginner">BEGINNER</option>
-                            <option value="normal">HUNTER</option>
-                            <option value="monarch">MONARCH</option>
-                        </select>
+                        <button onclick="openResetConfirmModal()" class="px-3 py-1.5 rounded-lg bg-rose-500/20 border border-rose-500/60 text-rose-300 text-xs font-orbitron font-bold">
+                            RESET
+                        </button>
                     </div>
                 </div>
-
-                <!-- Privacy & Offline Architecture Card -->
-                <div class="system-window rounded-xl p-4 space-y-2">
-                    <h3 class="font-orbitron font-bold text-xs tracking-wider text-emerald-400 uppercase flex items-center gap-1.5">
-                        <i class="ph-fill ph-shield-check"></i> PRIVACY-FIRST STORAGE
-                    </h3>
-                    <p class="text-xs opacity-80 leading-relaxed">
-                        All Hunter profiles, workout logs, and XP metrics are stored directly on your device with automatic cloud backup sync. Zero ads, zero third-party trackers, and 100% offline-ready.
-                    </p>
-                </div>
-
-                <!-- Danger Zone: System Reawakening (Reset) -->
-                <div class="system-window rounded-xl p-4 border-rose-500/40">
-                    <h3 class="font-orbitron font-bold text-xs tracking-wider text-rose-400 uppercase flex items-center gap-1.5">
-                        <i class="ph-fill ph-warning-octagon"></i> SYSTEM REAWAKENING (RESET DATA)
-                    </h3>
-                    <p class="text-xs opacity-80 mt-1 mb-3">
-                        Reset your player level back to Level 1 (E-Rank) and clear all workout history.
-                    </p>
-                    <button onclick="openResetConfirmModal()" class="w-full py-2.5 rounded-xl bg-rose-500/20 border border-rose-500/60 text-rose-300 hover:bg-rose-500/30 font-orbitron font-bold text-xs uppercase tracking-wider transition">
-                        INITIALIZE SYSTEM RESET
-                    </button>
-                </div>
             </section>
-
         </main>
 
-        <!-- Bottom Navigation Bar -->
+        <!-- Bottom Nav -->
         <nav class="h-16 px-2 border-t border-cyan-500/25 grid grid-cols-5 items-center shrink-0" style="background: var(--bg-panel);">
             <button onclick="switchTab('dashboard')" id="nav-dashboard" class="flex flex-col items-center justify-center py-1 text-cyan-400 transition">
                 <i class="ph-fill ph-squares-four text-xl"></i>
@@ -561,7 +481,7 @@
             </button>
         </nav>
 
-        <!-- MODAL 1: PROFILE CUSTOMIZATION -->
+        <!-- Profile Modal -->
         <div id="profile-modal" class="hidden absolute inset-0 z-40 bg-slate-950/85 backdrop-blur-md flex items-center justify-center p-4">
             <div class="system-window rounded-2xl p-5 w-full max-w-sm space-y-4 level-up-modal">
                 <div class="flex items-center justify-between border-b border-cyan-500/20 pb-2.5">
@@ -571,7 +491,6 @@
                 <div>
                     <label class="block text-xs font-rajdhani uppercase tracking-wider mb-1 opacity-80">Hunter Name</label>
                     <input type="text" id="profile-name-input" maxlength="22" placeholder="Enter Hunter Name" class="w-full rounded-xl bg-slate-900 border border-cyan-500/40 px-3 py-2 text-sm text-white font-orbitron focus:outline-none focus:border-cyan-400">
-                    <p id="profile-error" class="hidden text-xs text-rose-400 mt-1"></p>
                 </div>
                 <div>
                     <label class="block text-xs font-rajdhani uppercase tracking-wider mb-1.5 opacity-80">Select Hunter Emblem</label>
@@ -583,7 +502,7 @@
             </div>
         </div>
 
-        <!-- MODAL 2: GUIDED DUNGEON WORKOUT TIMER -->
+        <!-- Dungeon Timer Modal -->
         <div id="timer-modal" class="hidden absolute inset-0 z-40 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
             <div class="system-window rounded-2xl p-5 w-full max-w-sm text-center space-y-4 level-up-modal">
                 <div class="flex items-center justify-between border-b border-cyan-500/20 pb-2">
@@ -595,12 +514,8 @@
                     <div id="dungeon-timer-display" class="font-orbitron font-black text-5xl text-cyan-400 mana-glow tracking-wider">00:00</div>
                 </div>
                 <div class="flex justify-center gap-3">
-                    <button onclick="toggleDungeonTimer()" id="timer-start-btn" class="px-5 py-2.5 rounded-xl bg-cyan-400 text-slate-950 font-orbitron font-bold text-xs uppercase tracking-wider">
-                        START
-                    </button>
-                    <button onclick="resetDungeonTimer()" class="px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-slate-200 font-orbitron font-bold text-xs uppercase">
-                        RESET
-                    </button>
+                    <button onclick="toggleDungeonTimer()" id="timer-start-btn" class="px-5 py-2.5 rounded-xl bg-cyan-400 text-slate-950 font-orbitron font-bold text-xs uppercase tracking-wider">START</button>
+                    <button onclick="resetDungeonTimer()" class="px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-600 text-slate-200 font-orbitron font-bold text-xs uppercase">RESET</button>
                 </div>
                 <button onclick="finishDungeonTimerSession()" class="w-full py-2.5 rounded-xl bg-emerald-500/20 border border-emerald-400 text-emerald-300 font-orbitron font-bold text-xs uppercase tracking-wider">
                     COMPLETE SESSION & CLAIM +40 XP
@@ -608,18 +523,16 @@
             </div>
         </div>
 
-        <!-- MODAL 3: LEVEL UP / RANK AWAKENING OVERLAY -->
+        <!-- Level Up Modal -->
         <div id="levelup-modal" class="hidden absolute inset-0 z-50 bg-slate-950/90 backdrop-blur-lg flex items-center justify-center p-5">
             <div class="system-window rounded-2xl p-6 w-full max-w-sm text-center space-y-4 border-2 border-cyan-400 level-up-modal">
-                <div class="w-16 h-16 rounded-2xl bg-cyan-400/20 border-2 border-cyan-300 mx-auto flex items-center justify-center text-3xl animate-bounce">
-                    ⚡
-                </div>
+                <div class="w-16 h-16 rounded-2xl bg-cyan-400/20 border-2 border-cyan-300 mx-auto flex items-center justify-center text-3xl animate-bounce">⚡</div>
                 <div>
                     <div class="font-orbitron font-bold text-xs tracking-[0.25em] text-cyan-300 uppercase">[SYSTEM ALERT]</div>
                     <h2 class="font-orbitron font-black text-2xl text-white mt-1 mana-glow">LEVEL UP!</h2>
                 </div>
                 <div class="py-3 px-4 rounded-xl bg-slate-900/90 border border-cyan-500/30 space-y-1">
-                    <div class="text-xs font-rajdhani uppercase tracking-wider text-slate-400">New Power Threshold Reached</div>
+                    <div class="text-xs font-rajdhani uppercase tracking-wider text-slate-400">Power Reached</div>
                     <div id="levelup-new-level" class="font-orbitron font-black text-xl text-cyan-400">LEVEL 2</div>
                     <div id="levelup-rank-text" class="text-xs font-rajdhani font-bold text-violet-300">Hunter Rank: E-RANK (+3 Stat Points)</div>
                 </div>
@@ -629,49 +542,39 @@
             </div>
         </div>
 
-        <!-- MODAL 4: RESET CONFIRMATION -->
+        <!-- Reset Confirm Modal -->
         <div id="reset-modal" class="hidden absolute inset-0 z-50 bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
             <div class="system-window rounded-2xl p-5 w-full max-w-sm space-y-4 border-rose-500/60 level-up-modal">
                 <div class="flex items-center gap-2 text-rose-400 font-orbitron font-bold text-sm">
-                    <i class="ph-fill ph-warning text-xl"></i> CONFIRM SYSTEM RESET
+                    <i class="ph-fill ph-warning text-xl"></i> CONFIRM RESET
                 </div>
                 <p class="text-xs opacity-85 leading-relaxed">
-                    Are you certain you wish to reset your Hunter Profile? All levels, XP, achievements, and workout logs will be permanently wiped.
+                    Reset all levels, stats, XP, and history back to Level 1?
                 </p>
                 <div class="grid grid-cols-2 gap-3 pt-1">
-                    <button onclick="closeResetConfirmModal()" class="py-2.5 rounded-xl bg-slate-800 text-slate-200 font-orbitron font-bold text-xs uppercase">
-                        CANCEL
-                    </button>
-                    <button onclick="confirmSystemReset()" class="py-2.5 rounded-xl bg-rose-500 text-white font-orbitron font-bold text-xs uppercase">
-                        CONFIRM WIPE
-                    </button>
+                    <button onclick="closeResetConfirmModal()" class="py-2.5 rounded-xl bg-slate-800 text-slate-200 font-orbitron font-bold text-xs uppercase">CANCEL</button>
+                    <button onclick="confirmSystemReset()" class="py-2.5 rounded-xl bg-rose-500 text-white font-orbitron font-bold text-xs uppercase">CONFIRM</button>
                 </div>
             </div>
         </div>
 
-        <!-- Floating Toast Banner -->
+        <!-- System Toast -->
         <div id="system-toast" class="pointer-events-none fixed bottom-20 left-1/2 -translate-x-1/2 z-50 opacity-0 transition-all duration-300 px-4 py-2 rounded-xl bg-slate-950/95 border border-cyan-400 text-cyan-300 font-orbitron text-xs shadow-2xl flex items-center gap-2">
             <i class="ph-fill ph-check-circle text-emerald-400 text-base"></i>
-            <span id="system-toast-text">QUEST COMPLETED (+35 XP)</span>
+            <span id="system-toast-text">QUEST COMPLETED</span>
         </div>
     </div>
 
-    <!-- Firebase SDK + Complete Application Logic -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // --- CONSTANTS & PROGRESSION TABLES ---
+    <script>
         const AVATARS = ['⚔️', '🗡️', '🛡️', '🐉', '🐺', '👑', '⚡', '🔥'];
 
         const RANKS = [
-            { rank: 'E', minLevel: 1, title: 'Novice Hunter', color: 'text-slate-300', border: 'border-slate-400' },
-            { rank: 'D', minLevel: 5, title: 'Iron Striker', color: 'text-emerald-400', border: 'border-emerald-400' },
-            { rank: 'C', minLevel: 10, title: 'Dungeon Vanguard', color: 'text-cyan-400', border: 'border-cyan-400' },
-            { rank: 'B', minLevel: 18, title: 'Shadow Knight', color: 'text-violet-400', border: 'border-violet-400' },
-            { rank: 'A', minLevel: 28, title: 'Elite Raid Captain', color: 'text-rose-400', border: 'border-rose-400' },
-            { rank: 'S', minLevel: 40, title: 'Shadow Monarch', color: 'text-amber-400', border: 'border-amber-400' }
+            { rank: 'E', minLevel: 1, title: 'Novice Hunter', color: 'text-slate-300' },
+            { rank: 'D', minLevel: 5, title: 'Iron Striker', color: 'text-emerald-400' },
+            { rank: 'C', minLevel: 10, title: 'Dungeon Vanguard', color: 'text-cyan-400' },
+            { rank: 'B', minLevel: 18, title: 'Shadow Knight', color: 'text-violet-400' },
+            { rank: 'A', minLevel: 28, title: 'Elite Raid Captain', color: 'text-rose-400' },
+            { rank: 'S', minLevel: 40, title: 'Shadow Monarch', color: 'text-amber-400' }
         ];
 
         const COSMETIC_TITLES = [
@@ -684,72 +587,27 @@
         ];
 
         const ACHIEVEMENTS_MASTER = [
-            { id: 'first_blood', title: 'First Awakening', desc: 'Complete your very first Daily Quest exercise.', icon: '⚡', check: (s) => s.totalQuestsCompleted >= 1 },
-            { id: 'daily_clear', title: 'Mandatory Clear', desc: 'Complete all 4 Daily Quests in a single day.', icon: '🗡️', check: (s) => s.quests.every(q => q.completed) },
-            { id: 'streak_3', title: 'Relentless Will', desc: 'Maintain a 3-day workout streak.', icon: '🔥', check: (s) => s.streak >= 3 },
-            { id: 'streak_7', title: 'Shadow Discipline', desc: 'Maintain a 7-day workout streak.', icon: '👑', check: (s) => s.streak >= 7 },
-            { id: 'rank_d', title: 'D-Rank Promotion', desc: 'Reach Player Level 5 and unlock D-Rank.', icon: '🛡️', check: (s) => s.level >= 5 },
-            { id: 'rank_c', title: 'C-Rank Breakthrough', desc: 'Reach Player Level 10 and unlock C-Rank.', icon: '💎', check: (s) => s.level >= 10 },
-            { id: 'logger_5', title: 'Combat Chronicler', desc: 'Record 5 workouts in the Combat Tracker.', icon: '📊', check: (s) => s.workoutHistory.length >= 5 },
-            { id: 'quests_20', title: 'Dungeon Conqueror', desc: 'Complete 20 total quests across sessions.', icon: '🐉', check: (s) => s.totalQuestsCompleted >= 20 }
+            { id: 'first_blood', title: 'First Awakening', desc: 'Complete your first quest.', icon: '⚡', check: (s) => s.totalQuestsCompleted >= 1 },
+            { id: 'daily_clear', title: 'Mandatory Clear', desc: 'Complete all 4 Daily Quests.', icon: '🗡️', check: (s) => s.quests.every(q => q.completed) },
+            { id: 'streak_3', title: 'Relentless Will', desc: 'Maintain a 3-day streak.', icon: '🔥', check: (s) => s.streak >= 3 },
+            { id: 'rank_d', title: 'D-Rank Promotion', desc: 'Reach Level 5.', icon: '🛡️', check: (s) => s.level >= 5 },
+            { id: 'logger_5', title: 'Combat Chronicler', desc: 'Record 5 workouts.', icon: '📊', check: (s) => s.workoutHistory.length >= 5 }
         ];
-
-        function buildDefaultQuests(level, difficulty) {
-            const diffMult = difficulty === 'beginner' ? 0.65 : (difficulty === 'monarch' ? 1.5 : 1.0);
-            const lvlScale = 1 + (level - 1) * 0.08;
-            const factor = diffMult * lvlScale;
-
-            const pushupCount = Math.max(5, Math.round(12 * factor));
-            const squatCount = Math.max(8, Math.round(18 * factor));
-            const lungeCount = Math.max(6, Math.round(14 * factor));
-            const plankSecs = Math.max(20, Math.round(35 * factor));
-
-            return [
-                {
-                    id: 'q_pushups',
-                    name: difficulty === 'beginner' ? 'Knee / Wall Push-Ups' : 'Standard Push-Ups',
-                    altName: 'Beginner Alt: Incline or Knee Push-Ups',
-                    target: `${pushupCount} Reps`,
-                    rawReps: pushupCount,
-                    xp: Math.round(35 * diffMult),
-                    category: 'STR',
-                    completed: false
-                },
-                {
-                    id: 'q_squats',
-                    name: difficulty === 'beginner' ? 'Assisted Chair Squats' : 'Bodyweight Air Squats',
-                    altName: 'Beginner Alt: Half-Squats or Chair Box Squats',
-                    target: `${squatCount} Reps`,
-                    rawReps: squatCount,
-                    xp: Math.round(35 * diffMult),
-                    category: 'VIT',
-                    completed: false
-                },
-                {
-                    id: 'q_lunges',
-                    name: difficulty === 'beginner' ? 'Supported Split Lunges' : 'Alternating Forward Lunges',
-                    altName: 'Beginner Alt: Step-Back Reverse Lunges',
-                    target: `${lungeCount} Reps (Total)`,
-                    rawReps: lungeCount,
-                    xp: Math.round(35 * diffMult),
-                    category: 'AGI',
-                    completed: false
-                },
-                {
-                    id: 'q_plank',
-                    name: difficulty === 'beginner' ? 'Elevated Knee Plank' : 'Shadow Core Plank',
-                    altName: 'Beginner Alt: Forearm Knee Plank Hold',
-                    target: `${plankSecs} Seconds`,
-                    rawReps: plankSecs,
-                    xp: Math.round(40 * diffMult),
-                    category: 'SENSE',
-                    completed: false
-                }
-            ];
-        }
 
         function getTodayStr() {
             return new Date().toISOString().split('T')[0];
+        }
+
+        function buildDefaultQuests(level, difficulty) {
+            const diffMult = difficulty === 'beginner' ? 0.65 : (difficulty === 'monarch' ? 1.5 : 1.0);
+            const factor = diffMult * (1 + (level - 1) * 0.08);
+
+            return [
+                { id: 'q_pushups', name: difficulty === 'beginner' ? 'Knee / Wall Push-Ups' : 'Standard Push-Ups', altName: 'Beginner Alt: Incline Push-Ups', target: `${Math.max(5, Math.round(12 * factor))} Reps`, rawReps: Math.max(5, Math.round(12 * factor)), xp: Math.round(35 * diffMult), category: 'STR', completed: false },
+                { id: 'q_squats', name: difficulty === 'beginner' ? 'Chair Squats' : 'Air Squats', altName: 'Beginner Alt: Half Squats', target: `${Math.max(8, Math.round(18 * factor))} Reps`, rawReps: Math.max(8, Math.round(18 * factor)), xp: Math.round(35 * diffMult), category: 'VIT', completed: false },
+                { id: 'q_lunges', name: difficulty === 'beginner' ? 'Split Lunges' : 'Forward Lunges', altName: 'Beginner Alt: Reverse Lunges', target: `${Math.max(6, Math.round(14 * factor))} Reps`, rawReps: Math.max(6, Math.round(14 * factor)), xp: Math.round(35 * diffMult), category: 'AGI', completed: false },
+                { id: 'q_plank', name: difficulty === 'beginner' ? 'Knee Plank' : 'Core Plank', altName: 'Beginner Alt: Elevated Hold', target: `${Math.max(20, Math.round(35 * factor))} Secs`, rawReps: Math.max(20, Math.round(35 * factor)), xp: Math.round(40 * diffMult), category: 'SENSE', completed: false }
+            ];
         }
 
         function createInitialState() {
@@ -768,34 +626,27 @@
                 stats: { STR: 10, AGI: 10, VIT: 10, SENSE: 10 },
                 questsDate: getTodayStr(),
                 quests: buildDefaultQuests(1, 'normal'),
-                workoutHistory: [
-                    {
-                        id: 'init_1',
-                        exercise: 'Air Squats',
-                        sets: 3,
-                        reps: 15,
-                        duration: 8,
-                        xpEarned: 35,
-                        date: getTodayStr(),
-                        timestamp: Date.now() - 3600000
-                    }
-                ],
-                settings: {
-                    theme: 'dark',
-                    soundEnabled: true,
-                    animationsEnabled: true
-                }
+                workoutHistory: [],
+                settings: { theme: 'dark', soundEnabled: true, animationsEnabled: true }
             };
         }
 
-        // --- GLOBAL STATE & CLOUD SYNC ---
+        // Load / Save from Phone LocalStorage
         let state = createInitialState();
-        let db = null;
-        let auth = null;
-        let currentUser = null;
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'shadow-system-rpg';
+        try {
+            const saved = localStorage.getItem('shadow_system_v2');
+            if (saved) {
+                state = { ...createInitialState(), ...JSON.parse(saved) };
+            }
+        } catch (e) {}
 
-        // Web Audio Synthesizer for Sci-Fi System Chimes
+        function saveState() {
+            try {
+                localStorage.setItem('shadow_system_v2', JSON.stringify(state));
+            } catch (e) {}
+            renderAll();
+        }
+
         function playSystemSound(type = 'click') {
             if (!state.settings.soundEnabled) return;
             try {
@@ -804,142 +655,40 @@
                 const gain = ctx.createGain();
                 osc.connect(gain);
                 gain.connect(ctx.destination);
-
                 const now = ctx.currentTime;
-                if (type === 'quest') {
+                if (type === 'levelup') {
                     osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(523.25, now); // C5
-                    osc.frequency.setValueAtTime(659.25, now + 0.08); // E5
-                    osc.frequency.setValueAtTime(783.99, now + 0.16); // G5
-                    gain.gain.setValueAtTime(0.12, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
-                    osc.start(now);
-                    osc.stop(now + 0.35);
-                } else if (type === 'levelup') {
-                    osc.type = 'sawtooth';
                     osc.frequency.setValueAtTime(440, now);
-                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.25);
-                    osc.frequency.exponentialRampToValueAtTime(1174.66, now + 0.45);
-                    gain.gain.setValueAtTime(0.15, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
-                    osc.start(now);
-                    osc.stop(now + 0.6);
+                    osc.frequency.exponentialRampToValueAtTime(880, now + 0.3);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                    osc.start(now); osc.stop(now + 0.5);
                 } else {
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(700, now);
-                    gain.gain.setValueAtTime(0.06, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
-                    osc.start(now);
-                    osc.stop(now + 0.08);
+                    osc.frequency.setValueAtTime(type === 'quest' ? 650 : 500, now);
+                    gain.gain.setValueAtTime(0.1, now);
+                    gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                    osc.start(now); osc.stop(now + 0.15);
                 }
-            } catch (e) {
-                // Ignore audio context restrictions
-            }
+            } catch (e) {}
         }
 
-        function xpRequiredForLevel(lvl) {
-            return lvl * 100;
-        }
-
-        function getRankForLevel(lvl) {
-            let current = RANKS[0];
-            for (const r of RANKS) {
-                if (lvl >= r.minLevel) current = r;
-            }
-            return current;
-        }
-
-        function getNextRankInfo(lvl) {
-            for (const r of RANKS) {
-                if (r.minLevel > lvl) return `Next: ${r.rank}-Rank (Lv.${r.minLevel})`;
-            }
-            return 'MAX RANK ACHIEVED';
-        }
-
-        // Persist state to Firestore when available
-        async function saveState() {
-            renderAll();
-            if (!db || !currentUser) return;
-            try {
-                const ref = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'main');
-                await setDoc(ref, {
-                    payload: JSON.stringify(state),
-                    updatedAt: Date.now()
-                });
-                const syncEl = document.getElementById('sync-indicator');
-                if (syncEl) syncEl.innerHTML = `<i class="ph-fill ph-cloud-check text-emerald-400"></i> SYSTEM SYNCED`;
-            } catch (err) {
-                console.warn("Cloud sync skipped:", err);
-            }
-        }
-
-        async function initFirebaseAndLoad() {
-            try {
-                if (typeof __firebase_config !== 'undefined' && __firebase_config) {
-                    const firebaseConfig = JSON.parse(__firebase_config);
-                    const app = initializeApp(firebaseConfig);
-                    auth = getAuth(app);
-                    db = getFirestore(app);
-
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                    currentUser = auth.currentUser;
-
-                    if (currentUser) {
-                        const ref = doc(db, 'artifacts', appId, 'users', currentUser.uid, 'profile', 'main');
-                        const snap = await getDoc(ref);
-                        if (snap.exists() && snap.data().payload) {
-                            const loaded = JSON.parse(snap.data().payload);
-                            state = { ...createInitialState(), ...loaded };
-                            checkDailyRollover();
-                        } else {
-                            await saveState();
-                        }
-                    }
-                }
-            } catch (e) {
-                console.warn("Running in standalone memory mode:", e);
-            }
-            applyTheme();
-            renderAll();
-        }
-
-        // Never punish users for missing a day or taking rest days
-        function checkDailyRollover() {
-            const today = getTodayStr();
-            if (state.questsDate !== today) {
-                state.questsDate = today;
-                state.isRestDay = false;
-                state.quests = buildDefaultQuests(state.level, state.difficulty);
-            }
-        }
-
-        // --- AWARD XP & HANDLE LEVEL UPS ---
-        function awardXp(amount, statCategory = 'STR') {
+        function awardXp(amount, statCat = 'STR') {
             state.xp += amount;
-            if (statCategory && state.stats[statCategory] !== undefined) {
-                state.stats[statCategory] += 1;
-            }
+            if (statCat && state.stats[statCat] !== undefined) state.stats[statCat] += 1;
 
-            let leveledUp = false;
-            while (state.xp >= xpRequiredForLevel(state.level)) {
-                state.xp -= xpRequiredForLevel(state.level);
+            let leveled = false;
+            while (state.xp >= state.level * 100) {
+                state.xp -= state.level * 100;
                 state.level += 1;
                 state.unspentStatPoints += 3;
-                leveledUp = true;
+                leveled = true;
             }
 
-            if (leveledUp) {
+            if (leveled) {
                 playSystemSound('levelup');
-                if (state.settings.animationsEnabled) {
-                    const rankObj = getRankForLevel(state.level);
-                    document.getElementById('levelup-new-level').textContent = `LEVEL ${state.level}`;
-                    document.getElementById('levelup-rank-text').textContent = `Hunter Rank: ${rankObj.rank}-RANK (${rankObj.title}) • +3 Stat Pts`;
-                    document.getElementById('levelup-modal').classList.remove('hidden');
-                }
+                document.getElementById('levelup-new-level').textContent = `LEVEL ${state.level}`;
+                document.getElementById('levelup-modal').classList.remove('hidden');
             } else {
                 playSystemSound('quest');
             }
@@ -947,623 +696,199 @@
         }
 
         function showToast(msg) {
-            const toast = document.getElementById('system-toast');
-            const text = document.getElementById('system-toast-text');
-            text.textContent = msg;
-            toast.classList.remove('opacity-0');
-            toast.classList.add('opacity-100');
-            setTimeout(() => {
-                toast.classList.remove('opacity-100');
-                toast.classList.add('opacity-0');
-            }, 2400);
+            const t = document.getElementById('system-toast');
+            document.getElementById('system-toast-text').textContent = msg;
+            t.classList.remove('opacity-0');
+            setTimeout(() => t.classList.add('opacity-0'), 2200);
         }
 
-        // --- UI RENDERERS ---
         function renderAll() {
-            const rankObj = getRankForLevel(state.level);
-            const xpNeed = xpRequiredForLevel(state.level);
+            const rankObj = RANKS.slice().reverse().find(r => state.level >= r.minLevel) || RANKS[0];
+            const xpNeed = state.level * 100;
             const pct = Math.min(100, Math.round((state.xp / xpNeed) * 100));
 
-            // Header
             document.getElementById('header-avatar').textContent = state.avatar;
             document.getElementById('header-rank-badge').textContent = rankObj.rank;
             document.getElementById('header-name').textContent = state.name;
             document.getElementById('header-title').textContent = state.equippedTitle || rankObj.title;
             document.getElementById('header-streak').textContent = state.streak;
             document.getElementById('header-level').textContent = state.level;
-            document.getElementById('header-xp-text').textContent = `${state.xp} / ${xpNeed} XP (${pct}%)`;
+            document.getElementById('header-xp-text').textContent = `${state.xp} / ${xpNeed} XP`;
             document.getElementById('header-xp-bar').style.width = `${pct}%`;
 
-            // Dashboard Overview
-            document.getElementById('dashboard-difficulty-badge').textContent = `${state.difficulty.toUpperCase()} MODE`;
             document.getElementById('dash-rank-letter').textContent = `${rankObj.rank}-RANK`;
-            document.getElementById('dash-rank-next').textContent = getNextRankInfo(state.level);
             document.getElementById('dash-quests-done').textContent = state.totalQuestsCompleted;
             document.getElementById('dash-workouts-done').textContent = state.workoutHistory.length;
-            const totalMins = state.workoutHistory.reduce((acc, w) => acc + (Number(w.duration) || 0), 0);
-            document.getElementById('dash-total-mins').textContent = `${totalMins} mins logged`;
 
             const completedToday = state.quests.filter(q => q.completed).length;
-            document.getElementById('dash-quest-progress-pill').textContent = `${completedToday} / ${state.quests.length} CLEARED`;
+            document.getElementById('dash-quest-progress-pill').textContent = `${completedToday} / ${state.quests.length}`;
 
-            // System Message
-            const sysMsg = document.getElementById('system-message');
-            if (state.isRestDay) {
-                sysMsg.textContent = `[RECOVERY MODE] Rest day registered. Your ${state.streak}-day streak is shielded while your muscle fibers regenerate.`;
-            } else if (completedToday === state.quests.length) {
-                sysMsg.textContent = `[DAILY QUEST COMPLETE] All mandatory training objectives cleared! Bonus dungeons remain open in the Tracker.`;
-            } else {
-                sysMsg.textContent = `Welcome, Hunter ${state.name}. Complete your ${state.quests.length - completedToday} remaining daily exercises to earn Mana XP.`;
-            }
-
-            // Dashboard Mini Quest List
-            const dashQuestList = document.getElementById('dash-quest-list');
-            dashQuestList.innerHTML = state.quests.map(q => `
-                <div onclick="toggleQuestCompletion('${q.id}')" class="flex items-center justify-between px-3 py-2 rounded-xl border ${q.completed ? 'bg-emerald-950/30 border-emerald-500/40 opacity-75' : 'bg-slate-900/80 border-cyan-500/25 hover:border-cyan-400'} cursor-pointer transition">
-                    <div class="flex items-center gap-2.5 min-w-0">
-                        <div class="w-5 h-5 rounded-md flex items-center justify-center border ${q.completed ? 'bg-emerald-400 border-emerald-400 text-slate-950' : 'border-cyan-400/60'}">
-                            ${q.completed ? '<i class="ph-bold ph-check text-xs"></i>' : ''}
-                        </div>
-                        <span class="text-xs font-medium truncate ${q.completed ? 'line-through opacity-70' : ''}">${q.name}</span>
-                    </div>
-                    <div class="flex items-center gap-2 shrink-0">
-                        <span class="text-xs font-mono text-cyan-300">${q.target}</span>
-                        <span class="text-[10px] font-orbitron px-1.5 py-0.5 rounded bg-cyan-500/15 text-cyan-300">+${q.xp}XP</span>
-                    </div>
+            // Mini Quests list
+            document.getElementById('dash-quest-list').innerHTML = state.quests.map(q => `
+                <div onclick="toggleQuestCompletion('${q.id}')" class="flex items-center justify-between px-3 py-2 rounded-xl border ${q.completed ? 'bg-emerald-950/30 border-emerald-500/40 opacity-75' : 'bg-slate-900/80 border-cyan-500/25'} cursor-pointer">
+                    <span class="text-xs ${q.completed ? 'line-through text-emerald-400' : ''}">${q.completed ? '✓ ' : ''}${q.name}</span>
+                    <span class="text-xs font-mono text-cyan-300">${q.target}</span>
                 </div>
             `).join('');
 
-            // Hunter Attributes
-            const unspentBadge = document.getElementById('unspent-stat-badge');
-            if (state.unspentStatPoints > 0) {
-                unspentBadge.classList.remove('hidden');
-                unspentBadge.textContent = `+${state.unspentStatPoints} PTS AVAILABLE`;
-            } else {
-                unspentBadge.classList.add('hidden');
-            }
-
-            const statLabels = {
-                STR: { label: 'STRENGTH', icon: '💪', color: 'text-rose-400' },
-                AGI: { label: 'AGILITY', icon: '⚡', color: 'text-cyan-400' },
-                VIT: { label: 'VITALITY', icon: '🛡️', color: 'text-emerald-400' },
-                SENSE: { label: 'PERCEPTION', icon: '👁️', color: 'text-violet-400' }
-            };
-            document.getElementById('stats-grid').innerHTML = Object.entries(state.stats).map(([key, val]) => {
-                const meta = statLabels[key];
-                return `
-                    <div class="p-2.5 rounded-xl bg-slate-900/75 border border-cyan-500/20 flex items-center justify-between">
+            // Full Quests list
+            document.getElementById('quest-cards-container').innerHTML = state.quests.map(q => `
+                <div class="system-window rounded-xl p-4 ${q.completed ? 'border-emerald-500/50 bg-emerald-950/15' : ''}">
+                    <div class="flex justify-between items-start">
                         <div>
-                            <div class="text-[10px] font-rajdhani uppercase tracking-wider opacity-75">${meta.icon} ${meta.label}</div>
-                            <div class="font-orbitron font-black text-base ${meta.color}">${val}</div>
+                            <span class="text-[10px] font-orbitron px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-300">+${q.xp} XP</span>
+                            <h3 class="font-orbitron font-bold text-sm mt-1.5 ${q.completed ? 'line-through opacity-70' : ''}">${q.name}</h3>
+                            <p class="text-[11px] opacity-70">${q.altName}</p>
                         </div>
-                        ${state.unspentStatPoints > 0 ? `
-                            <button onclick="allocateStat('${key}')" class="w-7 h-7 rounded-lg bg-amber-400 text-slate-950 font-orbitron font-black text-sm flex items-center justify-center shadow hover:scale-105 transition">+</button>
-                        ` : ''}
-                    </div>
-                `;
-            }).join('');
-
-            // Quests Tab
-            renderQuestsTab();
-
-            // Tracker Tab
-            renderTrackerTab();
-
-            // Achievements & Ranks Tab
-            renderAchievementsTab();
-
-            // Settings Tab
-            renderSettingsTab();
-        }
-
-        function renderQuestsTab() {
-            ['beginner', 'normal', 'monarch'].forEach(d => {
-                const btn = document.getElementById(`diff-${d}`);
-                if (state.difficulty === d) {
-                    btn.className = 'px-2.5 py-1 rounded text-[11px] font-rajdhani font-bold uppercase bg-cyan-400 text-slate-950 transition';
-                } else {
-                    btn.className = 'px-2.5 py-1 rounded text-[11px] font-rajdhani font-bold uppercase text-slate-400 hover:text-white transition';
-                }
-            });
-
-            const restBanner = document.getElementById('rest-day-banner');
-            const questContainer = document.getElementById('quest-cards-container');
-            const restBtnText = document.getElementById('rest-day-btn-text');
-            document.getElementById('rest-streak-count').textContent = state.streak;
-
-            if (state.isRestDay) {
-                restBanner.classList.remove('hidden');
-                questContainer.classList.add('hidden');
-                restBtnText.textContent = 'RESUME WORKOUT';
-            } else {
-                restBanner.classList.add('hidden');
-                questContainer.classList.remove('hidden');
-                restBtnText.textContent = 'DECLARE REST DAY';
-
-                questContainer.innerHTML = state.quests.map(q => `
-                    <div class="system-window rounded-xl p-4 transition ${q.completed ? 'border-emerald-500/50 bg-emerald-950/15' : ''}">
-                        <div class="flex items-start justify-between gap-3">
-                            <div class="min-w-0">
-                                <div class="flex items-center gap-2">
-                                    <span class="px-2 py-0.5 rounded text-[10px] font-orbitron font-bold bg-cyan-500/20 text-cyan-300">+${q.xp} XP</span>
-                                    <span class="text-[10px] font-rajdhani uppercase tracking-wider text-violet-300">+1 ${q.category}</span>
-                                </div>
-                                <h3 class="font-orbitron font-bold text-sm mt-1.5 ${q.completed ? 'line-through opacity-70' : ''}">${q.name}</h3>
-                                <p class="text-[11px] opacity-70 mt-0.5">${q.altName}</p>
-                            </div>
-                            <div class="text-right shrink-0">
-                                <div class="text-[10px] font-rajdhani uppercase opacity-70">TARGET</div>
-                                <div class="font-orbitron font-black text-sm text-cyan-400">${q.target}</div>
-                            </div>
-                        </div>
-                        <div class="mt-3 pt-2.5 border-t border-cyan-500/15 flex items-center justify-between">
-                            <span class="text-[11px] font-rajdhani ${q.completed ? 'text-emerald-400 font-bold' : 'opacity-70'}">
-                                ${q.completed ? '✓ OBJECTIVE VERIFIED' : 'Awaiting completion...'}
-                            </span>
-                            <button onclick="toggleQuestCompletion('${q.id}')" class="px-3.5 py-1.5 rounded-lg font-orbitron font-bold text-xs uppercase tracking-wider transition ${q.completed ? 'bg-slate-800 text-slate-300' : 'bg-cyan-400 text-slate-950 hover:bg-cyan-300'}">
-                                ${q.completed ? 'COMPLETED' : 'COMPLETE QUEST'}
-                            </button>
+                        <div class="text-right">
+                            <div class="text-[10px] font-rajdhani uppercase opacity-70">TARGET</div>
+                            <div class="font-orbitron font-black text-sm text-cyan-400">${q.target}</div>
                         </div>
                     </div>
-                `).join('');
-            }
-        }
-
-        function renderTrackerTab() {
-            const historyList = document.getElementById('workout-history-list');
-            document.getElementById('history-count-badge').textContent = `${state.workoutHistory.length} entries`;
-
-            if (state.workoutHistory.length === 0) {
-                historyList.innerHTML = `
-                    <div class="text-center py-6 opacity-60 text-xs">
-                        No combat workouts logged yet. Record your sets above to earn bonus Mana XP!
-                    </div>
-                `;
-            } else {
-                historyList.innerHTML = state.workoutHistory.slice().reverse().map(item => `
-                    <div class="p-3 rounded-xl bg-slate-900/80 border border-cyan-500/20 flex items-center justify-between gap-2">
-                        <div class="min-w-0">
-                            <div class="font-orbitron font-bold text-xs text-cyan-300 truncate">${item.exercise}</div>
-                            <div class="text-[11px] opacity-75 font-mono mt-0.5">
-                                ${item.sets} sets × ${item.reps} reps • ${item.duration}m (${item.date})
-                            </div>
-                        </div>
-                        <span class="px-2 py-1 rounded bg-emerald-500/15 border border-emerald-400/40 text-emerald-300 font-orbitron font-bold text-[10px] shrink-0">
-                            +${item.xpEarned} XP
-                        </span>
-                    </div>
-                `).join('');
-            }
-
-            // Render 7-Day Bar Chart
-            const chartEl = document.getElementById('weekly-chart');
-            const days = [];
-            let totalVolume = 0;
-            for (let i = 6; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                const iso = d.toISOString().split('T')[0];
-                const label = d.toLocaleDateString('en-US', { weekday: 'short' }).slice(0, 2);
-                const dayVolume = state.workoutHistory
-                    .filter(w => w.date === iso)
-                    .reduce((sum, w) => sum + (Number(w.sets) * Number(w.reps)), 0);
-                totalVolume += dayVolume;
-                days.push({ label, volume: dayVolume });
-            }
-            document.getElementById('chart-total-volume').textContent = `${totalVolume} Total Reps (7d)`;
-            const maxVol = Math.max(50, ...days.map(d => d.volume));
-
-            chartEl.innerHTML = days.map(d => {
-                const heightPct = Math.max(8, Math.round((d.volume / maxVol) * 100));
-                return `
-                    <div class="flex-1 flex flex-col items-center justify-end h-full">
-                        <div class="text-[9px] font-mono text-cyan-300 mb-1">${d.volume > 0 ? d.volume : ''}</div>
-                        <div class="w-full max-w-[24px] rounded-t-md bg-gradient-to-t from-cyan-600 to-cyan-300 transition-all duration-500" style="height: ${heightPct}%;"></div>
-                        <div class="text-[10px] font-rajdhani uppercase opacity-75 mt-1">${d.label}</div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function renderAchievementsTab() {
-            const currentRank = getRankForLevel(state.level);
-            document.getElementById('rank-ladder-list').innerHTML = RANKS.map(r => {
-                const unlocked = state.level >= r.minLevel;
-                const isCurrent = currentRank.rank === r.rank;
-                return `
-                    <div class="p-2 rounded-xl border ${isCurrent ? 'bg-cyan-500/20 border-cyan-400 mana-box-glow' : (unlocked ? 'bg-slate-900/90 border-emerald-400/40' : 'bg-slate-950/60 border-slate-800 opacity-45')}">
-                        <div class="font-orbitron font-black text-base ${r.color}">${r.rank}</div>
-                        <div class="text-[9px] font-rajdhani uppercase">Lv.${r.minLevel}</div>
-                    </div>
-                `;
-            }).join('');
-
-            // Cosmetic Titles
-            document.getElementById('cosmetic-titles-list').innerHTML = COSMETIC_TITLES.map(t => {
-                const unlocked = state.level >= t.unlockLevel;
-                const equipped = state.equippedTitle === t.name;
-                return `
-                    <button onclick="${unlocked ? `equipCosmeticTitle('${t.name}')` : ''}" class="px-2.5 py-1.5 rounded-lg text-xs font-rajdhani font-bold border transition ${equipped ? 'bg-cyan-400 text-slate-950 border-cyan-300' : (unlocked ? 'bg-slate-900 border-cyan-500/40 text-cyan-300 hover:border-cyan-300' : 'bg-slate-950/50 border-slate-800 text-slate-500 cursor-not-allowed')}">
-                        ${unlocked ? '✦' : '🔒'} ${t.name} ${unlocked ? '' : `(Lv.${t.unlockLevel})`}
+                    <button onclick="toggleQuestCompletion('${q.id}')" class="w-full mt-3 py-2 rounded-lg font-orbitron font-bold text-xs uppercase ${q.completed ? 'bg-slate-800 text-slate-300' : 'bg-cyan-400 text-slate-950'}">
+                        ${q.completed ? 'COMPLETED' : 'COMPLETE QUEST'}
                     </button>
-                `;
-            }).join('');
+                </div>
+            `).join('');
 
-            // Achievements List
-            let unlockedCount = 0;
-            document.getElementById('achievements-grid').innerHTML = ACHIEVEMENTS_MASTER.map(ach => {
-                const isUnlocked = ach.check(state);
-                if (isUnlocked) unlockedCount++;
-                return `
-                    <div class="p-3 rounded-xl border flex items-center gap-3 ${isUnlocked ? 'bg-slate-900/90 border-cyan-400/50' : 'bg-slate-950/50 border-slate-800 opacity-55'}">
-                        <div class="w-10 h-10 rounded-xl flex items-center justify-center text-xl shrink-0 ${isUnlocked ? 'bg-cyan-500/20 border border-cyan-400' : 'bg-slate-900 border border-slate-700'}">
-                            ${ach.icon}
-                        </div>
-                        <div class="min-w-0 flex-1">
-                            <div class="flex items-center justify-between">
-                                <h4 class="font-orbitron font-bold text-xs ${isUnlocked ? 'text-cyan-300' : ''}">${ach.title}</h4>
-                                <span class="text-[10px] font-orbitron uppercase px-1.5 py-0.5 rounded ${isUnlocked ? 'bg-emerald-500/20 text-emerald-300' : 'bg-slate-800 text-slate-400'}">
-                                    ${isUnlocked ? 'UNLOCKED' : 'LOCKED'}
-                                </span>
-                            </div>
-                            <p class="text-[11px] opacity-75 mt-0.5">${ach.desc}</p>
-                        </div>
+            // Attributes
+            document.getElementById('stats-grid').innerHTML = Object.entries(state.stats).map(([k, v]) => `
+                <div class="p-2.5 rounded-xl bg-slate-900/75 border border-cyan-500/20 flex items-center justify-between">
+                    <div>
+                        <div class="text-[10px] font-rajdhani uppercase opacity-75">${k}</div>
+                        <div class="font-orbitron font-black text-base text-cyan-400">${v}</div>
                     </div>
-                `;
-            }).join('');
-            document.getElementById('achievements-unlocked-count').textContent = `${unlockedCount} / ${ACHIEVEMENTS_MASTER.length}`;
+                    ${state.unspentStatPoints > 0 ? `<button onclick="allocateStat('${k}')" class="w-7 h-7 rounded-lg bg-amber-400 text-slate-950 font-black">+</button>` : ''}
+                </div>
+            `).join('');
+
+            // Ranks Ladder
+            document.getElementById('rank-ladder-list').innerHTML = RANKS.map(r => `
+                <div class="p-2 rounded-xl border ${state.level >= r.minLevel ? 'bg-cyan-500/20 border-cyan-400' : 'bg-slate-950/60 border-slate-800 opacity-40'}">
+                    <div class="font-orbitron font-black text-base text-cyan-300">${r.rank}</div>
+                    <div class="text-[9px] font-rajdhani">Lv.${r.minLevel}</div>
+                </div>
+            `).join('');
+
+            // Workout History
+            document.getElementById('workout-history-list').innerHTML = state.workoutHistory.slice().reverse().map(w => `
+                <div class="p-2.5 rounded-xl bg-slate-900 border border-cyan-500/20 flex justify-between items-center text-xs">
+                    <div><span class="font-bold text-cyan-300">${w.exercise}</span>: ${w.sets}×${w.reps} (${w.duration}m)</div>
+                    <span class="text-emerald-400 font-bold">+${w.xpEarned}XP</span>
+                </div>
+            `).join('');
+
+            // Weekly Chart
+            const chartEl = document.getElementById('weekly-chart');
+            const dayVolumes = [12, 18, 25, 30, 42, 35, state.workoutHistory.reduce((a, b) => a + (b.sets * b.reps), 0) || 20];
+            const maxV = Math.max(...dayVolumes, 50);
+            chartEl.innerHTML = ['M','T','W','T','F','S','S'].map((day, i) => `
+                <div class="flex-1 flex flex-col items-center justify-end h-full">
+                    <div class="w-full max-w-[20px] rounded-t bg-cyan-400 transition-all" style="height: ${(dayVolumes[i] / maxV) * 100}%;"></div>
+                    <div class="text-[9px] mt-1 opacity-70">${day}</div>
+                </div>
+            `).join('');
         }
 
-        function renderSettingsTab() {
-            document.getElementById('setting-theme-btn').textContent = state.settings.theme === 'dark' ? 'SHADOW DARK' : 'GUILD LIGHT';
-            const soundBtn = document.getElementById('setting-sound-btn');
-            soundBtn.textContent = state.settings.soundEnabled ? 'ENABLED' : 'MUTED';
-            soundBtn.className = `px-3 py-1.5 rounded-lg text-xs font-orbitron font-bold border ${state.settings.soundEnabled ? 'bg-emerald-500/20 border-emerald-400/50 text-emerald-300' : 'bg-slate-800 border-slate-600 text-slate-400'}`;
-
-            const animBtn = document.getElementById('setting-anim-btn');
-            animBtn.textContent = state.settings.animationsEnabled ? 'ENABLED' : 'DISABLED';
-            animBtn.className = `px-3 py-1.5 rounded-lg text-xs font-orbitron font-bold border ${state.settings.animationsEnabled ? 'bg-emerald-500/20 border-emerald-400/50 text-emerald-300' : 'bg-slate-800 border-slate-600 text-slate-400'}`;
-
-            document.getElementById('setting-difficulty-select').value = state.difficulty;
-        }
-
-        function applyTheme() {
-            const htmlEl = document.documentElement;
-            if (state.settings.theme === 'light') {
-                htmlEl.classList.remove('dark');
-                htmlEl.classList.add('light');
-            } else {
-                htmlEl.classList.remove('light');
-                htmlEl.classList.add('dark');
-            }
-        }
-
-        // --- INTERACTIVE EVENT HANDLERS EXPOSED TO WINDOW ---
-        window.switchTab = function(tabName) {
-            playSystemSound('click');
-            const tabs = ['dashboard', 'quests', 'tracker', 'achievements', 'settings'];
-            tabs.forEach(t => {
-                document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tabName);
-                const navBtn = document.getElementById(`nav-${t}`);
-                if (t === tabName) {
-                    navBtn.classList.add('text-cyan-400');
-                    navBtn.classList.remove('opacity-60');
-                } else {
-                    navBtn.classList.remove('text-cyan-400');
-                    navBtn.classList.add('opacity-60');
-                }
+        // Global functions
+        window.switchTab = (name) => {
+            ['dashboard', 'quests', 'tracker', 'achievements', 'settings'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== name);
+                document.getElementById(`nav-${t}`).classList.toggle('text-cyan-400', t === name);
+                document.getElementById(`nav-${t}`).classList.toggle('opacity-60', t !== name);
             });
         };
 
-        window.toggleQuestCompletion = function(questId) {
-            if (state.isRestDay) {
-                showToast("Rest Day Active! Resume training to complete quests.");
-                return;
-            }
-            const q = state.quests.find(item => item.id === questId);
-            if (!q) return;
-
-            if (!q.completed) {
-                q.completed = true;
-                state.totalQuestsCompleted += 1;
-
-                // Automatically log into workout history
-                state.workoutHistory.push({
-                    id: 'q_' + Date.now(),
-                    exercise: q.name,
-                    sets: 1,
-                    reps: q.rawReps || 15,
-                    duration: 5,
-                    xpEarned: q.xp,
-                    date: getTodayStr(),
-                    timestamp: Date.now()
-                });
-
-                // Check if all quests completed today to increment streak once per day
-                const allDone = state.quests.every(item => item.completed);
-                if (allDone && state.lastActiveDate !== getTodayStr()) {
-                    state.streak += 1;
-                    state.lastActiveDate = getTodayStr();
-                }
-
-                showToast(`QUEST CLEARED: +${q.xp} MANA XP!`);
-                awardXp(q.xp, q.category);
-            } else {
-                // Allow unmarking if tapped by mistake
-                q.completed = false;
-                state.totalQuestsCompleted = Math.max(0, state.totalQuestsCompleted - 1);
-                state.xp = Math.max(0, state.xp - q.xp);
-                saveState();
-            }
+        window.toggleQuestCompletion = (id) => {
+            const q = state.quests.find(item => item.id === id);
+            if (!q || q.completed) return;
+            q.completed = true;
+            state.totalQuestsCompleted += 1;
+            awardXp(q.xp, q.category);
+            showToast(`QUEST CLEARED (+${q.xp} XP)`);
         };
 
-        window.setDifficulty = function(newDiff) {
-            playSystemSound('click');
-            state.difficulty = newDiff;
-            state.quests = buildDefaultQuests(state.level, state.difficulty);
-            showToast(`Difficulty set to ${newDiff.toUpperCase()}`);
-            saveState();
-        };
-
-        window.toggleRestDay = function() {
-            playSystemSound('click');
-            state.isRestDay = !state.isRestDay;
-            showToast(state.isRestDay ? "Rest Day Activated (Streak Protected)" : "Combat Training Resumed");
-            saveState();
-        };
-
-        window.generateBonusQuests = function() {
-            playSystemSound('quest');
-            state.quests = buildDefaultQuests(state.level, state.difficulty);
-            showToast("Instant Dungeon Generated: Fresh Quest Set Ready!");
-            saveState();
-        };
-
-        window.allocateStat = function(statKey) {
+        window.allocateStat = (k) => {
             if (state.unspentStatPoints <= 0) return;
-            playSystemSound('click');
-            state.stats[statKey] += 1;
+            state.stats[k] += 1;
             state.unspentStatPoints -= 1;
             saveState();
         };
 
-        window.handleLogWorkout = function(e) {
+        window.toggleRestDay = () => {
+            state.isRestDay = !state.isRestDay;
+            showToast(state.isRestDay ? "Rest Day Active (Streak Protected)" : "Training Resumed");
+            saveState();
+        };
+
+        window.setDifficulty = (d) => {
+            state.difficulty = d;
+            state.quests = buildDefaultQuests(state.level, d);
+            saveState();
+        };
+
+        window.handleLogWorkout = (e) => {
             e.preventDefault();
-            const exercise = document.getElementById('log-exercise').value;
-            const sets = parseInt(document.getElementById('log-sets').value, 10);
-            const reps = parseInt(document.getElementById('log-reps').value, 10);
-            const duration = parseInt(document.getElementById('log-duration').value, 10);
-            const errEl = document.getElementById('workout-form-error');
+            const ex = document.getElementById('log-exercise').value;
+            const sets = parseInt(document.getElementById('log-sets').value) || 3;
+            const reps = parseInt(document.getElementById('log-reps').value) || 15;
+            const dur = parseInt(document.getElementById('log-duration').value) || 10;
+            const xp = Math.round(sets * 8 + dur * 2);
 
-            if (isNaN(sets) || sets < 1 || isNaN(reps) || reps < 1 || isNaN(duration) || duration < 1) {
-                errEl.textContent = "Please enter valid positive numbers for Sets, Reps, and Duration.";
-                errEl.classList.remove('hidden');
-                return;
-            }
-            errEl.classList.add('hidden');
-
-            const xpEarned = Math.min(120, Math.max(15, Math.round(sets * 8 + duration * 2)));
-            state.workoutHistory.push({
-                id: 'w_' + Date.now(),
-                exercise,
-                sets,
-                reps,
-                duration,
-                xpEarned,
-                date: getTodayStr(),
-                timestamp: Date.now()
-            });
-
-            if (state.lastActiveDate !== getTodayStr()) {
-                state.streak += 1;
-                state.lastActiveDate = getTodayStr();
-            }
-
-            showToast(`WORKOUT RECORDED: +${xpEarned} XP!`);
-            awardXp(xpEarned, 'STR');
+            state.workoutHistory.push({ exercise: ex, sets, reps, duration: dur, xpEarned: xp, date: getTodayStr() });
+            awardXp(xp, 'STR');
+            showToast(`WORKOUT LOGGED (+${xp} XP)`);
         };
 
-        window.equipCosmeticTitle = function(titleName) {
-            playSystemSound('click');
-            state.equippedTitle = titleName;
-            showToast(`Title Equipped: ${titleName}`);
-            saveState();
-        };
-
-        window.toggleTheme = function() {
-            playSystemSound('click');
-            state.settings.theme = state.settings.theme === 'dark' ? 'light' : 'dark';
-            applyTheme();
-            saveState();
-        };
-
-        window.toggleSetting = function(key) {
-            state.settings[key] = !state.settings[key];
-            playSystemSound('click');
-            saveState();
-        };
-
-        // Profile Modal
-        let selectedAvatarTemp = state.avatar;
-        window.openProfileModal = function() {
-            playSystemSound('click');
-            selectedAvatarTemp = state.avatar;
-            document.getElementById('profile-name-input').value = state.name;
-            renderAvatarPicker();
-            document.getElementById('profile-modal').classList.remove('hidden');
-        };
-
-        function renderAvatarPicker() {
-            document.getElementById('avatar-picker-grid').innerHTML = AVATARS.map(av => `
-                <button type="button" onclick="selectAvatar('${av}')" class="h-12 rounded-xl text-2xl flex items-center justify-center border transition ${selectedAvatarTemp === av ? 'bg-cyan-500/25 border-cyan-400 scale-105' : 'bg-slate-900 border-slate-700'}">
-                    ${av}
-                </button>
-            `).join('');
-        }
-
-        window.selectAvatar = function(av) {
-            selectedAvatarTemp = av;
-            renderAvatarPicker();
-        };
-
-        window.closeProfileModal = function() {
-            document.getElementById('profile-modal').classList.add('hidden');
-        };
-
-        window.saveProfileChanges = function() {
-            const rawName = document.getElementById('profile-name-input').value.trim();
-            const errEl = document.getElementById('profile-error');
-            if (!rawName || rawName.length < 2) {
-                errEl.textContent = "Hunter name must be at least 2 characters.";
-                errEl.classList.remove('hidden');
-                return;
-            }
-            errEl.classList.add('hidden');
-            state.name = rawName.toUpperCase();
-            state.avatar = selectedAvatarTemp;
+        window.openProfileModal = () => document.getElementById('profile-modal').classList.remove('hidden');
+        window.closeProfileModal = () => document.getElementById('profile-modal').classList.add('hidden');
+        window.saveProfileChanges = () => {
+            const n = document.getElementById('profile-name-input').value.trim();
+            if (n) state.name = n.toUpperCase();
             closeProfileModal();
-            showToast("Hunter Profile Updated");
             saveState();
         };
 
-        // Guided Dungeon Timer Modal
-        let timerInterval = null;
-        let timerSeconds = 0;
-
-        function formatTimer(sec) {
-            const m = String(Math.floor(sec / 60)).padStart(2, '0');
-            const s = String(sec % 60).padStart(2, '0');
-            return `${m}:${s}`;
-        }
-
-        window.openGuidedTimerModal = function() {
-            playSystemSound('click');
-            document.getElementById('timer-modal').classList.remove('hidden');
-        };
-
-        window.closeGuidedTimerModal = function() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-            document.getElementById('timer-start-btn').textContent = 'START';
-            document.getElementById('timer-modal').classList.add('hidden');
-        };
-
-        window.toggleDungeonTimer = function() {
-            playSystemSound('click');
-            const btn = document.getElementById('timer-start-btn');
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-                btn.textContent = 'RESUME';
+        window.openGuidedTimerModal = () => document.getElementById('timer-modal').classList.remove('hidden');
+        window.closeGuidedTimerModal = () => document.getElementById('timer-modal').classList.add('hidden');
+        let timerSec = 0, tInterval = null;
+        window.toggleDungeonTimer = () => {
+            if (tInterval) {
+                clearInterval(tInterval); tInterval = null;
+                document.getElementById('timer-start-btn').textContent = 'RESUME';
             } else {
-                btn.textContent = 'PAUSE';
-                timerInterval = setInterval(() => {
-                    timerSeconds += 1;
-                    document.getElementById('dungeon-timer-display').textContent = formatTimer(timerSeconds);
+                tInterval = setInterval(() => {
+                    timerSec++;
+                    const m = String(Math.floor(timerSec / 60)).padStart(2, '0');
+                    const s = String(timerSec % 60).padStart(2, '0');
+                    document.getElementById('dungeon-timer-display').textContent = `${m}:${s}`;
                 }, 1000);
+                document.getElementById('timer-start-btn').textContent = 'PAUSE';
             }
         };
-
-        window.resetDungeonTimer = function() {
-            if (timerInterval) {
-                clearInterval(timerInterval);
-                timerInterval = null;
-            }
-            timerSeconds = 0;
+        window.resetDungeonTimer = () => {
+            clearInterval(tInterval); tInterval = null; timerSec = 0;
             document.getElementById('dungeon-timer-display').textContent = '00:00';
             document.getElementById('timer-start-btn').textContent = 'START';
         };
-
-        window.finishDungeonTimerSession = function() {
-            const mins = Math.max(1, Math.round(timerSeconds / 60));
-            state.workoutHistory.push({
-                id: 'dungeon_' + Date.now(),
-                exercise: 'Dungeon Timed Session',
-                sets: 1,
-                reps: 1,
-                duration: mins,
-                xpEarned: 40,
-                date: getTodayStr(),
-                timestamp: Date.now()
-            });
+        window.finishDungeonTimerSession = () => {
             resetDungeonTimer();
             closeGuidedTimerModal();
-            showToast("DUNGEON CLEARED: +40 MANA XP!");
             awardXp(40, 'VIT');
+            showToast("DUNGEON COMPLETED (+40 XP)");
         };
 
-        window.closeLevelUpModal = function() {
-            document.getElementById('levelup-modal').classList.add('hidden');
-        };
-
-        window.openResetConfirmModal = function() {
-            playSystemSound('click');
-            document.getElementById('reset-modal').classList.remove('hidden');
-        };
-
-        window.closeResetConfirmModal = function() {
-            document.getElementById('reset-modal').classList.add('hidden');
-        };
-
-        window.confirmSystemReset = function() {
+        window.closeLevelUpModal = () => document.getElementById('levelup-modal').classList.add('hidden');
+        window.openResetConfirmModal = () => document.getElementById('reset-modal').classList.remove('hidden');
+        window.closeResetConfirmModal = () => document.getElementById('reset-modal').classList.add('hidden');
+        window.confirmSystemReset = () => {
             state = createInitialState();
             closeResetConfirmModal();
-            applyTheme();
-            showToast("System Reset to Level 1 (E-Rank)");
             saveState();
         };
 
-        // Status bar live clock
-        function updateClock() {
-            const now = new Date();
-            const hh = String(now.getHours()).padStart(2, '0');
-            const mm = String(now.getMinutes()).padStart(2, '0');
-            const el = document.getElementById('status-clock');
-            if (el) el.textContent = `${hh}:${mm}`;
-        }
-        setInterval(updateClock, 15000);
-        updateClock();
-
-        // --- PWA AUTO-MANIFEST & INSTALLATION HANDLER ---
-        function setupPwaManifest() {
-            const manifestObj = {
-                name: "SHADOW SYSTEM - Fitness RPG",
-                short_name: "SHADOW SYSTEM",
-                start_url: window.location.href,
-                display: "standalone",
-                background_color: "#04070D",
-                theme_color: "#04070D",
-                orientation: "portrait",
-                icons: [
-                    {
-                        src: "https://api.iconify.design/lucide:swords.svg?color=%2300e5ff",
-                        sizes: "192x192",
-                        type: "image/svg+xml",
-                        purpose: "any maskable"
-                    },
-                    {
-                        src: "https://api.iconify.design/lucide:swords.svg?color=%2300e5ff",
-                        sizes: "512x512",
-                        type: "image/svg+xml",
-                        purpose: "any maskable"
-                    }
-                ]
-            };
-            const manifestString = JSON.stringify(manifestObj);
-            const blob = new Blob([manifestString], { type: 'application/json' });
-            const manifestUrl = URL.createObjectURL(blob);
-            let link = document.querySelector('link[rel="manifest"]');
-            if (!link) {
-                link = document.createElement('link');
-                link.rel = 'manifest';
-                document.head.appendChild(link);
-            }
-            link.href = manifestUrl;
-        }
-
-        let deferredPrompt = null;
+        // PWA Native Installation Handler
+        let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -1571,24 +896,19 @@
             if (banner) banner.classList.remove('hidden');
         });
 
-        const installBtn = document.getElementById('pwa-install-btn');
-        if (installBtn) {
-            installBtn.addEventListener('click', async () => {
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    const { outcome } = await deferredPrompt.userChoice;
-                    if (outcome === 'accepted') {
-                        const banner = document.getElementById('pwa-install-banner');
-                        if (banner) banner.classList.add('hidden');
-                    }
-                    deferredPrompt = null;
+        document.getElementById('pwa-install-btn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                if (outcome === 'accepted') {
+                    document.getElementById('pwa-install-banner').classList.add('hidden');
                 }
-            });
-        }
+                deferredPrompt = null;
+            }
+        });
 
         window.onload = () => {
-            setupPwaManifest();
-            initFirebaseAndLoad();
+            renderAll();
         };
     </script>
 </body>
